@@ -39,19 +39,19 @@ class MainDialog:
     def get_source_VG(self):
         return self.get_string("Enter the source VG name : ")
 
-    def get_dest_VG(self, default=None):
+    def get_dest_VG(self, default=''):
         return self.get_string("Enter the destination VG name : ", default)
 
     def get_source_LV_prefix(self):
         return self.get_string("Enter the source LV prefix : ")
 
-    def get_dest_LV_prefix(self, default=None):
+    def get_dest_LV_prefix(self, default=''):
         return self.get_string("Enter the destination LV prefix : ", default)
 
     def get_source_bridge(self):
         return self.get_string("Enter the source bridge name : ")
 
-    def get_dest_bridge(self, default=None):
+    def get_dest_bridge(self, default=''):
         return self.get_string("Enter the destination bridge name : ", default)
 
     def get_dest_host(self):
