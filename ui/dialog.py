@@ -22,9 +22,9 @@ class MainDialog:
         else:
             return True
 
-    def get_string(self, message, regex=None):
+    def get_string(self, message, default=None, regex=None):
         while True:
-            code, string = self.d.inputbox(message)
+            code, string = self.d.inputbox(message, init=default)
 
             if code == self.d.OK:
                 if self.check_regex(regex, string):
@@ -38,20 +38,20 @@ class MainDialog:
     def get_source_VG(self):
         return self.get_string("Enter the source VG name : ")
 
-    def get_dest_VG(self):
-        return self.get_string("Enter the destination VG name : ")
+    def get_dest_VG(self, default=None):
+        return self.get_string("Enter the destination VG name : ", default)
 
-    def get_source_LV(self):
-        return self.get_string("Enter the source LV name : ")
+    def get_source_LV_prefix(self):
+        return self.get_string("Enter the source LV prefix : ")
 
-    def get_dest_LV(self):
-        return self.get_string("Enter the destination LV name : ")
+    def get_dest_LV_prefix(self, default=None):
+        return self.get_string("Enter the destination LV prefix : ", default)
 
     def get_source_bridge(self):
         return self.get_string("Enter the source bridge name : ")
 
-    def get_dest_bridge(self):
-        return self.get_string("Enter the destination bridge name : ")
+    def get_dest_bridge(self, default=None):
+        return self.get_string("Enter the destination bridge name : ", default)
 
     def get_dest_host(self):
         return self.get_string("Enter the destination host : ")
