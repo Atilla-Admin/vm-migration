@@ -104,3 +104,4 @@ class Migration():
 
 if __name__ == "__main__":
     interface = MainDialog()
+    Migration(interface)

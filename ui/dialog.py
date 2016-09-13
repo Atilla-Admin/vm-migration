@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+import locale
 import re
 
 from dialog import Dialog
@@ -9,11 +12,9 @@ MENU_CHOICE_ABOUT = "#2"
 MENU_CHOICE_QUIT = "#3"
 
 class MainDialog:
-    def __init__(self, auto_run=True):
-        self.d = Dialog(dialog="dialog", autowidgets=True)
+    def __init__(self):
+        self.d = Dialog(dialog="dialog", autowidgetsize=True)
         self.d.set_background_title("ATILLA - VM Migration")
-        if auto_run:
-            self.run()
 
     def check_regex(self, regex, message):
         if regex is not None:
@@ -22,7 +23,7 @@ class MainDialog:
         else:
             return True
 
-    def get_string(self, message, default=None, regex=None):
+    def get_string(self, message, default='', regex=None):
         while True:
             code, string = self.d.inputbox(message, init=default)
 
