@@ -4,6 +4,10 @@ from dialog import Dialog
 
 locale.setlocale(locale.LC_ALL, '')
 
+MENU_CHOICE_START_MIGRATION = "#1"
+MENU_CHOICE_ABOUT = "#2"
+MENU_CHOICE_QUIT = "#3"
+
 class MainDialog:
     def __init__(self, auto_run=True):
         self.d = Dialog(dialog="dialog", autowidgets=True)
@@ -51,6 +55,22 @@ class MainDialog:
 
     def get_dest_host(self):
         return self.get_string("Enter the destination host : ")
+
+    def main_menu(self):
+        main_menu_choices = [
+                (MENU_CHOICE_START_MIGRATION, "Start a new migration"),
+                (MENU_CHOICE_ABOUT, "Learn more about this application"),
+                (MENU_CHOICE_QUIT, "Quit the program")]
+
+        while True:
+            code, tag = self.d.menu(
+                    "VM-Migration / Hello !",
+                    choices=main_menu_choices)
+
+            if code == self.d.OK:
+                return tag
+            else:
+                return None
 
     def learn_more(self):
         text = ("This application is meant to ease XEN VMs migration over "
