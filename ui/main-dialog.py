@@ -56,6 +56,9 @@ class MainDialog:
     def get_dest_host(self):
         return self.get_string("Enter the destination host : ")
 
+    def show_progress(self, fp):
+        self.d.progressbox(fp)
+
     def main_menu(self):
         main_menu_choices = [
                 (MENU_CHOICE_START_MIGRATION, "Start a new migration"),
