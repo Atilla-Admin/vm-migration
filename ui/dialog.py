@@ -5,11 +5,15 @@ import re
 
 from dialog import Dialog
 
+from .exception import CancelException
+
 locale.setlocale(locale.LC_ALL, '')
 
 MENU_CHOICE_START_MIGRATION = "#1"
 MENU_CHOICE_ABOUT = "#2"
 MENU_CHOICE_QUIT = "#3"
+
+HOST_CHECK_REGEX='^[\w\.]+\.\w+$'
 
 class MainDialog:
     def __init__(self):
@@ -32,30 +36,19 @@ class MainDialog:
                     return string
                 else:
                     self.d.msgbox("Invalid input, please make sure that your "
-                            "input satisfies the following regex : " + regex)
+                            "input satisfies the following regex :\n\n" + regex)
             else:
-                return None
+                raise CancelException()
 
-    def get_source_VG(self):
-        return self.get_string("Enter the source VG name : ")
-
-    def get_dest_VG(self, default=''):
-        return self.get_string("Enter the destination VG name : ", default)
-
-    def get_source_LV_prefix(self):
-        return self.get_string("Enter the source LV prefix : ")
-
-    def get_dest_LV_prefix(self, default=''):
-        return self.get_string("Enter the destination LV prefix : ", default)
-
-    def get_source_bridge(self):
-        return self.get_string("Enter the source bridge name : ")
-
-    def get_dest_bridge(self, default=''):
-        return self.get_string("Enter the destination bridge name : ", default)
+    def get_source_host(self):
+        return self.get_string(
+                "Enter source host : ",
+                regex=HOST_CHECK_REGEX)
 
     def get_dest_host(self):
-        return self.get_string("Enter the destination host : ")
+        return self.get_string(
+                "Enter the destination host : ",
+                regex=HOST_CHECK_REGEX)
 
     def show_progress(self, fp):
         self.d.progressbox(fp)
@@ -68,7 +61,7 @@ class MainDialog:
 
         while True:
             code, tag = self.d.menu(
-                    "VM-Migration / Hello !",
+                    "VM-Migration / Main menu",
                     choices=main_menu_choices)
 
             if code == self.d.OK:
@@ -76,9 +69,13 @@ class MainDialog:
             else:
                 return None
 
+    def show_error(self, message):
+        text = 'An error occured : \n\n{}'.format(message)
+        self.d.msgbox(text)
+
     def learn_more(self):
-        text = ("This application is meant to ease XEN VMs migration over "
-                "network.\n\n"
-                "Source code available at : \n"
-                "https://gitlab.atilla.org/adminsys/vm-migration")
+        text = ('This application is meant to ease XEN VMs migration over '
+                'network.\n\n'
+                'Source code available at : \n'
+                'https://gitlab.atilla.org/adminsys/vm-migration')
         self.d.msgbox(text)
