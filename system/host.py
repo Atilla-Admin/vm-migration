@@ -7,6 +7,7 @@ from paramiko import SSHClient
 from .vg import VG
 from .exception import *
 
+
 class Host:
     def __init__(self, hostname):
         self.hostname = hostname
@@ -26,9 +27,9 @@ class Host:
         try:
             self.client.connect(self.hostname, username='root')
         except:
-            return false
+            return False
         self.close()
-        return true
+        return True
 
     def execute_command(self, command):
         self.client.connect(self.hostname, username='root')

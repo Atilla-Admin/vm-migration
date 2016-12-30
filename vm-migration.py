@@ -8,6 +8,7 @@ from ui.dialog import MENU_CHOICE_ABOUT
 
 from ui.exception import CancelException
 
+
 class Migration():
     def __init__(self, interface):
         self.i = interface
@@ -16,6 +17,7 @@ class Migration():
     def migrate(self):
         try:
             self.source_host = Host(self.i.get_source_host())
+            self.i.show_info('Loading VG list from remote host …')
             self.source_host.load_volume_groups()
         except CancelException:
             return
@@ -24,15 +26,20 @@ class Migration():
 
     def menu(self):
         while True:
-            menu_item = self.i.main_menu()
+            try:
+                menu_item = self.i.main_menu()
 
-            if menu_item == MENU_CHOICE_START_MIGRATION:
-                self.migrate()
-            elif menu_item == MENU_CHOICE_ABOUT:
-                self.i.learn_more()
-            else:
-                os.system('clear')
+                if menu_item == MENU_CHOICE_START_MIGRATION:
+                    self.migrate()
+                elif menu_item == MENU_CHOICE_ABOUT:
+                    self.i.learn_more()
+                else:
+                    break
+            except CancelException:
                 break
+
+        os.system('clear')
+
 
 if __name__ == "__main__":
     interface = MainDialog()

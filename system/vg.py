@@ -1,6 +1,7 @@
 import re
 
-from lv import LV
+from .lv import LV
+
 
 class VG:
     def __init__(self, host, name, uid):
