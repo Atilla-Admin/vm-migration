@@ -9,16 +9,16 @@ from .exception import CancelException
 
 locale.setlocale(locale.LC_ALL, '')
 
-MENU_CHOICE_START_MIGRATION = "#1"
-MENU_CHOICE_ABOUT = "#2"
-MENU_CHOICE_QUIT = "#3"
+MENU_CHOICE_START_MIGRATION = '#1'
+MENU_CHOICE_ABOUT = '#2'
+MENU_CHOICE_QUIT = '#3'
 
 HOST_CHECK_REGEX='^[\w\.]+\.\w+$'
 
 class MainDialog:
     def __init__(self):
-        self.d = Dialog(dialog="dialog", autowidgetsize=True)
-        self.d.set_background_title("ATILLA - VM Migration")
+        self.d = Dialog(dialog='dialog', autowidgetsize=True)
+        self.d.set_background_title('ATILLA - VM Migration')
 
     def check_regex(self, regex, message):
         if regex is not None:
@@ -35,19 +35,19 @@ class MainDialog:
                 if self.check_regex(regex, string):
                     return string
                 else:
-                    self.d.msgbox("Invalid input, please make sure that your "
-                            "input satisfies the following regex :\n\n" + regex)
+                    self.d.msgbox('Invalid input, please make sure that your '
+                            'input satisfies the following regex :\n\n' + regex)
             else:
                 raise CancelException()
 
     def get_source_host(self):
         return self.get_string(
-                "Enter source host : ",
+                'Enter source host : ',
                 regex=HOST_CHECK_REGEX)
 
     def get_dest_host(self):
         return self.get_string(
-                "Enter the destination host : ",
+                'Enter the destination host : ',
                 regex=HOST_CHECK_REGEX)
 
     def show_progress(self, fp):
@@ -55,13 +55,13 @@ class MainDialog:
 
     def main_menu(self):
         main_menu_choices = [
-                (MENU_CHOICE_START_MIGRATION, "Start a new migration"),
-                (MENU_CHOICE_ABOUT, "Learn more about this application"),
-                (MENU_CHOICE_QUIT, "Quit the program")]
+                (MENU_CHOICE_START_MIGRATION, 'Start a new migration'),
+                (MENU_CHOICE_ABOUT, 'Learn more about this application'),
+                (MENU_CHOICE_QUIT, 'Quit the program')]
 
         while True:
             code, tag = self.d.menu(
-                    "VM-Migration / Main menu",
+                    'VM-Migration / Main menu',
                     choices=main_menu_choices)
 
             if code == self.d.OK:
