@@ -49,4 +49,4 @@ class Host:
         pattern = r'^\s*(?P<name>[\w\-]+):.*:(?P<uid>[\w\-]+)$'
         for line in stdout:
             reg = re.match(pattern, line)
-            self.vgs.append(VG(reg.group('name'), reg.group('uid')))
+            self.vgs.append(VG(self, reg.group('name'), reg.group('uid')))
